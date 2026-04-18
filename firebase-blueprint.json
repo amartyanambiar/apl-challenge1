@@ -1,0 +1,82 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "User Profile",
+      "description": "Stores fan preferences and identification info",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "displayName": { "type": "string" },
+        "photoURL": { "type": "string" },
+        "favoriteTeam": { "type": "string" },
+        "bio": { "type": "string" }
+      },
+      "required": ["uid", "displayName"]
+    },
+    "Match": {
+      "title": "IPL Match",
+      "description": "Represents a live or recent match event",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "team1": { "type": "string" },
+        "team2": { "type": "string" },
+        "venue": { "type": "string" },
+        "status": { "type": "string", "enum": ["upcoming", "live", "finished"] },
+        "score1": { "type": "string" },
+        "score2": { "type": "string" },
+        "timestamp": { "type": "string", "format": "date-time" },
+        "aiSummary": { "type": "string" }
+      },
+      "required": ["id", "team2", "team2", "status"]
+    },
+    "Comment": {
+      "title": "Fan Comment",
+      "description": "A message left by a fan in a match discussion",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "matchId": { "type": "string" },
+        "userId": { "type": "string" },
+        "userName": { "type": "string" },
+        "userPhoto": { "type": "string" },
+        "text": { "type": "string" },
+        "team": { "type": "string" },
+        "timestamp": { "type": "string", "format": "date-time" }
+      },
+      "required": ["matchId", "userId", "text", "timestamp"]
+    },
+    "Reaction": {
+      "title": "Match Reaction",
+      "description": "Real-time reaction to match events",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "matchId": { "type": "string" },
+        "userId": { "type": "string" },
+        "type": { "type": "string", "enum": ["SIX", "FOUR", "OUT", "WICKET", "CHEER", "OOPS"] },
+        "team": { "type": "string" },
+        "timestamp": { "type": "string", "format": "date-time" }
+      },
+      "required": ["matchId", "type", "timestamp"]
+    }
+  },
+  "firestore": {
+    "/users/{uid}": {
+      "schema": "UserProfile",
+      "description": "User profile data"
+    },
+    "/matches/{matchId}": {
+      "schema": "Match",
+      "description": "Individual match records"
+    },
+    "/matches/{matchId}/comments/{commentId}": {
+      "schema": "Comment",
+      "description": "Discussion thread for a match"
+    },
+    "/matches/{matchId}/reactions/{reactionId}": {
+      "schema": "Reaction",
+      "description": "Live reactions for a match"
+    }
+  }
+}

@@ -1,0 +1,45 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@300;500;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Space Grotesk", sans-serif;
+  
+  --color-bento-bg: #0A0F1E;
+  --color-bento-surface: #161E31;
+  --color-bento-border: #2D3A54;
+  --color-bento-yellow: #FACC15;
+  --color-bento-blue: #3B82F6;
+  --color-bento-text-main: #F1F5F9;
+  --color-bento-text-dim: #94A3B8;
+}
+
+@layer base {
+  body {
+    @apply bg-bento-bg text-bento-text-main font-sans;
+  }
+}
+
+.bento-card {
+  @apply bg-bento-surface border border-bento-border rounded-2xl p-5 relative transition-all duration-300;
+}
+
+.bento-card-label {
+  @apply text-[10px] uppercase tracking-wider text-bento-text-dim mb-3 block opacity-70;
+}
+
+.bento-button {
+  @apply px-4 py-2 bg-bento-yellow text-bento-bg font-bold rounded-lg transition-all hover:scale-105 active:scale-95 disabled:opacity-50;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  @apply bg-bento-border rounded-full;
+}
+
